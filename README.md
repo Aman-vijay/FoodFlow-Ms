@@ -1,7 +1,5 @@
 # FoodFlow-Ms
 It is a microservice project.
-Major tech stack used :-
-MERN
-DOCKER
-NGINX
+TITLE - FOODFLOW 
+TECH STACK -  MONGO-DB,REACT,NODE.JS,EXPRESS JS,DOCKER,NGINX
 
