@@ -1,6 +1,7 @@
-
+const dotenv = require('dotenv');
+dotenv.config();
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://Amanvj:Kakashi04@cluster0.nkvm0xm.mongodb.net/foodgomern?retryWrites=true&w=majority';
+const mongoURI = process.env.MONGO_URI;
 
 async function initData() {
     try {
@@ -8,7 +9,10 @@ async function initData() {
         console.log('Connected to MongoDB');
 
         const foodCollection = mongoose.connection.db.collection('food_items');
-        const categoryCollection = mongoose.connection.db.collection('food_category');
+        const categoryCollection = await mongoose.connection.db.collection('foodCategory');
+        // console.log('foodCollection:', foodCollection);
+
+
 
         const data = await foodCollection.find({}).toArray();
         const Catdata = await categoryCollection.find({}).toArray();

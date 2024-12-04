@@ -3,7 +3,10 @@ const router = express.Router();
 const FoodItem = require('../models/FoodItem');
 const fetchDetails = require('../middleware/fetchdetails');
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://Amanvj:Kakashi04@cluster0.nkvm0xm.mongodb.net/foodgomern?retryWrites=true&w=majority';
+const dotenv = require('dotenv');
+dotenv.config();
+const mongoURI = process.env.MONGO_URI;
+
 
 
 
@@ -34,6 +37,7 @@ router.get('/getFoodItem', async (req, res) => {
     try {
         const foodItems = await FoodItem.find();
         res.json(foodItems);
+        console.log('Food items sent!', foodItems);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server Error');

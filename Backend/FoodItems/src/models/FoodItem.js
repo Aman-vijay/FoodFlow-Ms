@@ -8,7 +8,7 @@ const FoodItemSchema = new Schema({
         type: String,
         required: true,
     },
-    // Add other properties specific to a food item
+    
 });
 
 module.exports = mongoose.model('foodItem', FoodItemSchema);

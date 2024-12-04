@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb+srv://Amanvj:Kakashi04@cluster0.nkvm0xm.mongodb.net/foodgomern?retryWrites=true&w=majority'; // Replace with your actual MongoDB URI
+const mongoURI = 'mongodb+srv://Amanvj:Kakashi04@cluster0.nkvm0xm.mongodb.net/foodgomern?retryWrites=true&w=majority'; 
 
 module.exports = async function () {
     try {
@@ -13,4 +13,6 @@ module.exports = async function () {
         console.error("Error connecting to MongoDB:", error);
         throw error;
     }
+    
+    
 };
