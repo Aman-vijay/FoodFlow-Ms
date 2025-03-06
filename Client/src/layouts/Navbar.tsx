@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
+import { ShoppingBasket } from 'lucide-react';
 
 const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="text-primary font-bold text-xl">
-          FoodieExpress
+          FoodFlow
         </Link>
 
         <nav className="hidden md:flex space-x-6 items-center">
@@ -19,11 +20,11 @@ const Navbar = () => {
             Orders
           </Link>
           <Link to="/cart" className="text-gray-700 hover:text-primary">
-            Cart
+           <ShoppingBasket/>
           </Link>
           <Link
             to="/login"
-            className="bg-primary text-white px-4 py-2 rounded-md hover:bg-accent transition"
+            className="bg-primary  px-4 py-2 rounded-md hover:bg-accent transition"
           >
             Login
           </Link>
