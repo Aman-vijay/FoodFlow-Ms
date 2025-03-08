@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/user', userRoutes);
 
-// Connect to DB and then start server
+
 (async () => {
   try {
     await connectDB();
