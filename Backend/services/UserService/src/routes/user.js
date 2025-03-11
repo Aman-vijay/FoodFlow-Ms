@@ -4,7 +4,7 @@ const { body } = require('express-validator');
 
 const fetchDetails = require('../middleware/fetchdetails');;
 
-const {createUser,getLocation,getUserById,Login} = require("../controllers/User")
+const {createUser,getLocation,getUserById,Login,getAllUsers} = require("../controllers/User")
 
 
 
@@ -23,6 +23,7 @@ router.post('/login', [
 
 router.post('/getuser', fetchDetails, getUserById);
 
+router.get('/getalluser',getAllUsers);
 
 router.post('/getlocation',getLocation);
 

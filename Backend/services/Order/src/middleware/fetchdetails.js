@@ -1,24 +1,22 @@
-// middleware/fetchdetails.js
 const jwt = require('jsonwebtoken');
-const jwtSecret = 'HaHa';
+const jwtSecret = process.env.JWTSECRET;
 
 const fetchDetails = (req, res, next) => {
-    // Get the token from the request headers
-    const token = req.header('auth-token');
+  const token = req.header('auth-token') || req.headers['authorization'];
 
-    // Check if the token is present
-    if (!token) {
-        return res.status(401).json({ error: 'Invalid Auth Token' });
-    }
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'Access Denied: No Token Provided' });
+  }
 
-    try {
-        // Verify the token and extract user information
-        const data = jwt.verify(token, jwtSecret);
-        req.user = data.user;
-        next();
-    } catch (error) {
-        res.status(401).json({ error: 'Invalid Auth Token' });
-    }
+  try {
+    const cleanToken = token.startsWith("Bearer ") ? token.split(" ")[1] : token;
+    const decoded = jwt.verify(cleanToken, jwtSecret);
+    req.user = decoded.user || decoded; 
+    next();
+  } catch (err) {
+    console.error("JWT verification failed:", err.message);
+    return res.status(403).json({ success: false, message: 'Invalid or Expired Token' });
+  }
 };
 
 module.exports = fetchDetails;

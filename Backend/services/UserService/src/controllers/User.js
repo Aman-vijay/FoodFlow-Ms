@@ -95,6 +95,15 @@ const getUserById = async(req,res)=>{
     }
 
 }
+const getAllUsers = async(req,res)=>{
+    try{
+        const users = await User.find();
+        res.json({users});
+    }
+    catch(error){
+        res.status(500).json(error.message)
+    }
+}
 const getLocation = async(req,res)=>{
     try {
             let lat = req.body.latlong.lat
@@ -125,4 +134,4 @@ const getLocation = async(req,res)=>{
 
 }
 
-module.exports = {createUser, Login, getUserById, getLocation};
+module.exports = {createUser, Login, getUserById, getLocation,getAllUsers};

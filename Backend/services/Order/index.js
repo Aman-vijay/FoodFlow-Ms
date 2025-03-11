@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 require("dotenv").config();
 const port = process.env.PORT
+const connectDB = require("./src/db");
+const orderRouter = require("./src/routes/orderRoute")
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -18,17 +20,21 @@ app.get('/', (req, res) => {
     res.send('Shopping is running!');
 });
 
-app.use('/api/Order', require('./src/routes/Order'));
+app.use('/api/order',orderRouter);
 
-app.listen(port, () => {
-    console.log(`Shopping listening on http://localhost:${port}`);
-});
+(async ()=>{
+    try{
+        await connectDB();
+        console.log("Database is connected for Orders");
 
-// Connect to the database
-require('./src/db')(function (err) {
-    if (err) {
-        console.error("Error connecting to the database:", err);
-    } else {
-        console.log("Shopping connected to the database");
+        app.listen(port,()=>{
+            console.log(`OrderServices is listening at ${port}`)
+        })
+
     }
-});
+    catch(error){
+        console.log("Failed to connect ", error.message)
+        process.exit(1);
+    }
+})();
+
