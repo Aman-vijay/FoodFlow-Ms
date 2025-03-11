@@ -1,8 +1,8 @@
 // routes/Order.js
 const express = require('express');
 const router = express.Router();
-const Order = require('../../src/models/Order');
-const fetch = require('../../src/middleware/fetchdetails');
+const Order = require('../models/Order');
+const fetch = require('../middleware/fetchdetails');
 
 
 router.post('/orderData', async (req, res) => {

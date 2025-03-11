@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const port = 5003; // Choose a port for your UserService
+require("dotenv").config();
+const port = process.env.PORT
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
