@@ -1,7 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config(); 
-
-
+const foodRouter = require("./src/routes/FoodItem")
 const express = require('express');
 const {FRONTEND_URL} = require("./util")
 const app = express();
@@ -19,10 +18,10 @@ app.use(express.json());
 
 
 // Routes
-app.use('/api/fooditems', require('./src/routes/FoodItem'));
+app.use('/', foodRouter);
 
 // Root route
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
   res.send('Food Items Service is running!');
 });
 

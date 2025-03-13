@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  user-service:
+    build: './services/UserService'
+    ports:
+      - 5001:5001
+    env_file:
+      - './services/UserService/.env'
+
+
+  fooditem-service:
+    build: './services/FoodItems'
+    ports:
+      - 5002:5002
+    env_file:
+      - './services/FoodItems/.env'
+
+  order-service:
+    build: './services/Order'
+    ports:
+      - 5003:5003
+    env_file:
+      - './services/Order/.env'
+
+  gateway:
+    build: './gateway'
+    ports:
+      - 80:80 
+    depends_on:
+      - user-service
+      - fooditem-service
+      - order-service
+

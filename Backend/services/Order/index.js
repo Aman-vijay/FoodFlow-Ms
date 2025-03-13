@@ -16,11 +16,11 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
     res.send('Shopping is running!');
 });
 
-app.use('/api/order',orderRouter);
+app.use('/',orderRouter);
 
 (async ()=>{
     try{

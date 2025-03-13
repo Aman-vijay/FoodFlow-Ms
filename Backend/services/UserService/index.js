@@ -13,10 +13,12 @@ const port = process.env.PORT_USER || 5001;
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('UserService is running!');
-});
-app.use('/api/user', userRoutes);
+
+app.use('/health',(req,res)=>{
+  res.send("Userservice is working fine")
+})
+
+app.use('/', userRoutes);
 
 
 (async () => {
