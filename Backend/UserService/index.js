@@ -1,35 +1,34 @@
-
-
+require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+// const corsOptions = require('./src/config/corsOptions');
+const connectDB = require('./src/db');
+const userRoutes = require('./src/routes/user');
+
 const app = express();
-const port = 5001; // Choose a port for your UserService
+const port = process.env.PORT_USER || 5001;
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-});
-
+// Middleware
+// app.use(cors(corsOptions));
 app.use(express.json());
 
+// Routes
 app.get('/', (req, res) => {
-    res.send('UserService is running!');
+  res.send('UserService is running!');
 });
+app.use('/api/user', userRoutes);
 
-app.use('/api/user', require('./src/routes/user'));
+// Connect to DB and then start server
+(async () => {
+  try {
+    await connectDB();
+    console.log('✅ UserService connected to the database');
 
-app.listen(port, () => {
-    console.log(`UserService listening on http://localhost:${port}`);
-});
-
-// Connect to the database
-require('./src/db')(function (err) {
-    if (err) {
-        console.error("Error connecting to the database:", err);
-    } else {
-        console.log("UserService connected to the database");
-    }
-});
+    app.listen(port, () => {
+      console.log(`🚀 UserService is live at http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.error('❌ Failed to connect to the database, shutting down...');
+    process.exit(1);
+  }
+})();

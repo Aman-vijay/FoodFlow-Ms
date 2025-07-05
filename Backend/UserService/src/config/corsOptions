@@ -1,0 +1,27 @@
+const allowedOrigins = [
+  'http://localhost:3000', // Dev frontend
+  'https://your-prod-domain.com', // Future production domain
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowNoOrigin = process.env.ALLOW_NO_ORIGIN === 'true';
+
+    // Allow requests from curl/Postman/mobile apps
+    if (!origin && allowNoOrigin) {
+      return callback(null, true);
+    }
+
+    // Allow only listed origins
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // Otherwise, block it
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+module.exports = corsOptions;

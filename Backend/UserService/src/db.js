@@ -1,18 +1,17 @@
-
+const dotenv = require("dotenv").config();
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb+srv://Amanvj:Kakashi04@cluster0.nkvm0xm.mongodb.net/foodgomern?retryWrites=true&w=majority'; 
+const mongoURI = process.env.MONGO_URI
 
-module.exports = async function () {
+module.exports = async function connectDB() {
     try {
-        await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-        // Additional setup or data retrieval can be performed here if needed
-        console.log("Connected to MongoDB");
+      await mongoose.connect(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+     
     } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
-        throw error;
+      console.error("❌ Error connecting to MongoDB:", error);
+      throw error;
     }
-    
-    
-};
+  };
